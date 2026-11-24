@@ -5,7 +5,7 @@
 - **Track:** 02 · Crypto & DeFi (CoinGecko)
 - **Deadline:** 2026-11-29 23:59 Dubai time (GMT+4) = **2026-11-30 03:59 SGT**
 - **Team:** solo, Wynnter
-- **Repo:** (public GitHub link, filled in after the repo is created)
+- **Repo:** https://github.com/w1nter625/glancepx
 - **Demo video:** pending (screen recording of the official Even Hub simulator, ≤ 3 minutes, English narration + burned-in captions; no on-camera appearance)
 
 ## Short description
