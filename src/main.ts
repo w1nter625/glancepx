@@ -102,11 +102,12 @@ function eventTypeOf(envelope?: { eventType?: OsEventTypeList }): OsEventTypeLis
   return envelope.eventType ?? OsEventTypeList.CLICK_EVENT
 }
 
-function isSwipeNext(type: OsEventTypeList | null): boolean {
-  if (type === null) return false
-  const enumObj = OsEventTypeList as unknown as Record<string, number>
-  const names = ['SWIPE_UP_EVENT', 'SWIPE_DOWN_EVENT', 'SLIDE_UP_EVENT', 'SLIDE_DOWN_EVENT', 'SCROLL_EVENT']
-  return names.some((name) => type === enumObj[name])
+function isScrollBottom(type: OsEventTypeList | null): boolean {
+  return type === OsEventTypeList.SCROLL_BOTTOM_EVENT
+}
+
+function isScrollTop(type: OsEventTypeList | null): boolean {
+  return type === OsEventTypeList.SCROLL_TOP_EVENT
 }
 
 function onTap(): void {
@@ -178,12 +179,14 @@ const unsubscribe = bridge.onEvenHubEvent((event) => {
     return
   }
 
-  if (isSwipeNext(sysType) || isSwipeNext(textType)) {
-    const enumObj = OsEventTypeList as unknown as Record<string, number>
-    const down = [enumObj.SWIPE_DOWN_EVENT, enumObj.SLIDE_DOWN_EVENT].includes(
-      (sysType ?? textType) as number,
-    )
-    onSwipe(down ? 1 : -1)
+  // Official simulator/firmware: temple swipe arrives as textEvent
+  // SCROLL_TOP_EVENT (1) / SCROLL_BOTTOM_EVENT (2).
+  if (isScrollBottom(sysType) || isScrollBottom(textType)) {
+    onSwipe(1)
+    return
+  }
+  if (isScrollTop(sysType) || isScrollTop(textType)) {
+    onSwipe(-1)
     return
   }
 

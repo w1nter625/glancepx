@@ -6,3 +6,6 @@ dist/
 .DS_Store
 .vite/
 *.ehpk
+
+# Built locally; published as a GitHub Release asset
+demo.mp4
